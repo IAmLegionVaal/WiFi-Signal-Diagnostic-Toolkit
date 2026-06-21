@@ -1,33 +1,43 @@
 # WiFi Signal Diagnostic Toolkit
 
-A read-only PowerShell toolkit for Wi-Fi signal and wireless adapter context.
+A PowerShell toolkit for Wi-Fi signal diagnostics and selected guarded wireless repairs.
 
-## Features
-
-- Wireless interface summary
-- Signal and SSID context
-- Adapter details
-- DNS and gateway context
-- CSV, TXT, and HTML reports
-
-## How to run
+## Diagnostic script
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File .\WiFi_Signal_Diagnostic_Toolkit.ps1
 ```
 
-## Safety
+## Repair script
 
-Diagnostic-only. It does not export wireless passwords or modify wireless profiles.
-
-## Suggested topics
-
-```text
-powershell
-wifi
-wireless
-networking
-helpdesk
-it-support
-troubleshooting
+```powershell
+powershell.exe -ExecutionPolicy Bypass -File .\WiFi_Repair_Toolkit.ps1 -RestartAdapter -DryRun
 ```
+
+Examples:
+
+```powershell
+.\WiFi_Repair_Toolkit.ps1 -RestartWlanService
+.\WiFi_Repair_Toolkit.ps1 -AdapterName Wi-Fi -RestartAdapter
+.\WiFi_Repair_Toolkit.ps1 -AdapterName Wi-Fi -RenewDhcp
+.\WiFi_Repair_Toolkit.ps1 -FlushDns
+.\WiFi_Repair_Toolkit.ps1 -ForgetProfile 'OldNetwork'
+```
+
+## What the repair does
+
+- Restarts WLAN AutoConfig.
+- Restarts one selected wireless adapter.
+- Releases and renews DHCP for the selected adapter.
+- Flushes the DNS resolver cache.
+- Removes one explicitly selected saved Wi-Fi profile.
+- Captures interface, adapter and IP state before and after repair.
+- Supports `-DryRun`, confirmation prompts, logs and clear exit codes.
+
+## Safety and privacy
+
+Connectivity can drop during repair. Removing a profile requires the user to reconnect and re-enter its security key. The tool never exports wireless passwords.
+
+## Author
+
+Dewald Pretorius — L2 IT Support Engineer
